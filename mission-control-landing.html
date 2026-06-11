@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission Control — The Adult in the Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --console:#0B0E13;
+    --panel:#11161F;
+    --panel-edge:#1E2630;
+    --amber:#F2740B;
+    --go:#3FB950;
+    --nogo:#E5484D;
+    --bone:#EDEAE3;
+    --dim:#8B93A1;
+    --faint:#535B68;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+    --sans:'Archivo', system-ui, sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--console);
+    color:var(--bone);
+    font-family:var(--sans);
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--amber);color:#0B0E13}
+  a{color:inherit}
+
+  /* ---------- status ticker ---------- */
+  .ticker{
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:.08em;
+    color:var(--dim);
+    border-bottom:1px solid var(--panel-edge);
+    padding:8px 0;
+    overflow:hidden;
+    white-space:nowrap;
+  }
+  .ticker-inner{display:inline-block;padding-left:100%;animation:tick 38s linear infinite}
+  @keyframes tick{to{transform:translateX(-100%)}}
+  .ticker b{color:var(--go);font-weight:500}
+  .ticker em{color:var(--amber);font-style:normal}
+  .ticker span{margin-right:3.5em}
+
+  /* ---------- layout ---------- */
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+  /* ---------- nav ---------- */
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 0;
+  }
+  .brand{display:flex;align-items:center;gap:13px;text-decoration:none}
+  .brand svg{display:block}
+  .wordmark{
+    font-weight:800;font-size:19px;line-height:1.02;
+    letter-spacing:.01em;
+  }
+  .nav-links{display:flex;gap:34px;align-items:center;font-size:14.5px}
+  .nav-links a{text-decoration:none;color:var(--dim);transition:color .15s}
+  .nav-links a:hover,.nav-links a:focus-visible{color:var(--bone)}
+  .btn{
+    display:inline-block;text-decoration:none;
+    font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.06em;
+    padding:13px 26px;border-radius:4px;
+    background:var(--amber);color:#0B0E13;
+    border:1px solid var(--amber);
+    transition:background .15s,transform .15s;
+  }
+  .btn:hover,.btn:focus-visible{background:#FF8A26;transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:var(--bone);border-color:var(--panel-edge)}
+  .btn.ghost:hover{border-color:var(--dim)}
+  :focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+
+  /* ---------- hero ---------- */
+  .hero{
+    display:grid;grid-template-columns:1.15fr .85fr;gap:64px;
+    align-items:center;padding:84px 0 96px;
+  }
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;font-weight:600;
+    letter-spacing:.22em;color:var(--amber);text-transform:uppercase;
+    display:flex;align-items:center;gap:12px;margin-bottom:26px;
+  }
+  .eyebrow::before{content:"";width:34px;height:2px;background:var(--amber)}
+  h1{
+    font-weight:850;
+    font-variation-settings:"wdth" 112;
+    font-size:clamp(44px,6.4vw,82px);
+    line-height:.98;letter-spacing:-.015em;
+    margin-bottom:30px;
+  }
+  h1 .quiet{color:var(--faint)}
+  .lede{font-size:19px;color:var(--dim);max-width:32em;margin-bottom:40px}
+  .lede strong{color:var(--bone);font-weight:600}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+
+  /* telemetry panel */
+  .telemetry{
+    background:var(--panel);
+    border:1px solid var(--panel-edge);
+    border-radius:8px;
+    overflow:hidden;
+    font-family:var(--mono);
+    box-shadow:0 30px 80px rgba(0,0,0,.5);
+  }
+  .telemetry-head{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:13px 18px;border-bottom:1px solid var(--panel-edge);
+    font-size:11px;letter-spacing:.14em;color:var(--dim);
+  }
+  .pill{
+    font-size:10.5px;padding:3px 10px;border-radius:99px;
+    background:rgba(63,185,80,.12);color:var(--go);
+    border:1px solid rgba(63,185,80,.3);
+  }
+  .telemetry-body{padding:6px 0}
+  .trow{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:12px 18px;font-size:13px;
+    border-bottom:1px solid rgba(30,38,48,.55);
+  }
+  .trow:last-child{border-bottom:none}
+  .trow .lbl{color:var(--bone)}
+  .trow .sub{color:var(--faint);font-size:11px;display:block;margin-top:2px}
+  .stat{font-weight:600;font-size:12px}
+  .stat.was{color:var(--nogo)}
+  .stat.now{color:var(--go)}
+  .arrow{color:var(--faint);margin:0 8px}
+  .telemetry-foot{
+    padding:12px 18px;border-top:1px solid var(--panel-edge);
+    font-size:11px;color:var(--faint);letter-spacing:.08em;
+    display:flex;justify-content:space-between;
+  }
+  .blink{animation:blink 1.2s steps(1) infinite;color:var(--go)}
+  @keyframes blink{50%{opacity:0}}
+
+  /* ---------- sections ---------- */
+  section{padding:96px 0}
+  .section-head{max-width:680px;margin-bottom:60px}
+  h2{
+    font-weight:800;font-variation-settings:"wdth" 110;
+    font-size:clamp(30px,3.6vw,44px);line-height:1.08;
+    letter-spacing:-.01em;margin:18px 0 18px;
+  }
+  .section-head p{color:var(--dim);font-size:18px}
+
+  /* ---------- problem strip ---------- */
+  .wall{border-top:1px solid var(--panel-edge)}
+  .failures{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--panel-edge);border:1px solid var(--panel-edge);border-radius:8px;overflow:hidden}
+  .failure{background:var(--console);padding:34px 30px}
+  .failure .code{
+    font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+    color:var(--nogo);margin-bottom:18px;display:block;
+  }
+  .failure h3{font-size:19px;font-weight:700;margin-bottom:12px;font-variation-settings:"wdth" 106}
+  .failure p{color:var(--dim);font-size:15.5px}
+
+  /* ---------- GO/NO-GO board (signature) ---------- */
+  .board{border-top:1px solid var(--panel-edge)}
+  .board-grid{display:grid;gap:14px}
+  .station{
+    display:grid;grid-template-columns:74px 1fr auto;gap:26px;align-items:center;
+    background:var(--panel);border:1px solid var(--panel-edge);border-radius:8px;
+    padding:26px 30px;
+    opacity:0;transform:translateY(14px);
+    transition:opacity .5s ease,transform .5s ease;
+  }
+  .station.lit{opacity:1;transform:none}
+  .station-id{
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--faint);
+  }
+  .station h3{font-size:20px;font-weight:700;font-variation-settings:"wdth" 106;margin-bottom:6px}
+  .station p{color:var(--dim);font-size:15.5px;max-width:46em}
+  .gonogo{
+    font-family:var(--mono);font-weight:600;font-size:13px;letter-spacing:.18em;
+    padding:9px 20px;border-radius:4px;min-width:110px;text-align:center;
+    background:rgba(229,72,77,.1);color:var(--nogo);border:1px solid rgba(229,72,77,.35);
+    transition:background .35s,color .35s,border-color .35s;
+  }
+  .station.lit .gonogo{
+    background:rgba(63,185,80,.12);color:var(--go);border-color:rgba(63,185,80,.4);
+  }
+  .station.lit .gonogo::before{content:"GO"}
+  .station:not(.lit) .gonogo::before{content:"NO-GO"}
+
+  /* ---------- process ---------- */
+  .process{border-top:1px solid var(--panel-edge)}
+  .phases{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .phase{
+    background:var(--panel);border:1px solid var(--panel-edge);border-radius:8px;
+    padding:30px 26px;
+  }
+  .phase .t{
+    font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.12em;
+    color:var(--amber);margin-bottom:20px;display:block;
+  }
+  .phase h3{font-size:18px;font-weight:700;margin-bottom:10px;font-variation-settings:"wdth" 106}
+  .phase p{color:var(--dim);font-size:15px}
+
+  /* ---------- CTA ---------- */
+  .cta{border-top:1px solid var(--panel-edge);text-align:center;padding:120px 0}
+  .cta h2{font-size:clamp(34px,4.4vw,56px);max-width:14em;margin:18px auto 22px}
+  .cta p{color:var(--dim);font-size:18px;margin-bottom:42px}
+  .cta .eyebrow{justify-content:center}
+  .cta .eyebrow::after{content:"";width:34px;height:2px;background:var(--amber)}
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top:1px solid var(--panel-edge);
+    padding:34px 0;
+    font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.06em;
+  }
+  .foot-inner{display:flex;justify-content:space-between;align-items:center}
+  footer .wordmark{font-size:15px}
+
+  @media (prefers-reduced-motion:reduce){
+    .ticker-inner{animation:none;padding-left:0}
+    .blink{animation:none}
+    .station{transition:none}
+  }
+  @media (max-width:920px){
+    .hero{grid-template-columns:1fr;gap:54px;padding:60px 0 72px}
+    .failures{grid-template-columns:1fr}
+    .phases{grid-template-columns:repeat(2,1fr)}
+    .nav-links a:not(.btn){display:none}
+  }
+  @media (max-width:600px){
+    .phases{grid-template-columns:1fr}
+    .station{grid-template-columns:1fr;gap:14px}
+    .gonogo{justify-self:start}
+    .foot-inner{flex-direction:column;gap:16px}
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <span>ALL SYSTEMS <b>NOMINAL</b></span>
+    <span>SECURITY AUDIT <b>GO</b></span>
+    <span>GDPR COMPLIANCE <b>GO</b></span>
+    <span>APP STORE REVIEW <b>GO</b></span>
+    <span>PAYMENTS <b>GO</b></span>
+    <span><em>FROM AI-BUILT TO BUSINESS-READY</em></span>
+    <span>ALL SYSTEMS <b>NOMINAL</b></span>
+    <span>SECURITY AUDIT <b>GO</b></span>
+    <span>GDPR COMPLIANCE <b>GO</b></span>
+    <span>APP STORE REVIEW <b>GO</b></span>
+    <span>PAYMENTS <b>GO</b></span>
+    <span><em>FROM AI-BUILT TO BUSINESS-READY</em></span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<nav>
+  <a class="brand" href="#" aria-label="Mission Control home">
+    <svg width="38" height="42" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mission Control shield logo">
+      <path d="M50 2 L96 14 V62 C96 86 76 100 50 108 C24 100 4 86 4 62 V14 Z" fill="#EDEAE3"/>
+      <path d="M50 22 L72 62 H58 V86 H42 V62 H28 Z" fill="#0B0E13"/>
+    </svg>
+    <span class="wordmark">Mission<br>Control</span>
+  </a>
+  <div class="nav-links">
+    <a href="#problem">The wall</a>
+    <a href="#board">What we fix</a>
+    <a href="#process">Process</a>
+    <a class="btn" href="#contact">BOOK ASSESSMENT</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div>
+    <span class="eyebrow">Rescue &amp; hardening for AI-built software</span>
+    <h1>The adult<br>in the room<span class="quiet">.</span></h1>
+    <p class="lede">Vibe-coded tools and cheap AI MVPs often hit a wall. We take your AI-built product and make it <strong>production-grade</strong> — security, GDPR, app store readiness, payments, maintainability.</p>
+    <div class="hero-ctas">
+      <a class="btn" href="#contact">BOOK A RESCUE ASSESSMENT</a>
+      <a class="btn ghost" href="#process">SEE HOW IT WORKS</a>
+    </div>
+  </div>
+
+  <aside class="telemetry" aria-label="Example rescue telemetry">
+    <div class="telemetry-head">
+      <span>RESCUE TELEMETRY · CLIENT BUILD 014</span>
+      <span class="pill">NOMINAL</span>
+    </div>
+    <div class="telemetry-body">
+      <div class="trow">
+        <span class="lbl">Exposed API keys<span class="sub">hard-coded in client bundle</span></span>
+        <span><span class="stat was">11</span><span class="arrow">→</span><span class="stat now">0</span></span>
+      </div>
+      <div class="trow">
+        <span class="lbl">Unauthenticated endpoints<span class="sub">open writes to production DB</span></span>
+        <span><span class="stat was">7</span><span class="arrow">→</span><span class="stat now">0</span></span>
+      </div>
+      <div class="trow">
+        <span class="lbl">App store rejections<span class="sub">privacy manifest, IAP rules</span></span>
+        <span><span class="stat was">3</span><span class="arrow">→</span><span class="stat now">SHIPPED</span></span>
+      </div>
+      <div class="trow">
+        <span class="lbl">Failed payments<span class="sub">no webhook retry logic</span></span>
+        <span><span class="stat was">9%</span><span class="arrow">→</span><span class="stat now">0.4%</span></span>
+      </div>
+    </div>
+    <div class="telemetry-foot">
+      <span>T-PLUS 21 DAYS</span>
+      <span>STATUS: IN ORBIT <span class="blink">▮</span></span>
+    </div>
+  </aside>
+</header>
+
+<section class="wall" id="problem">
+  <div class="section-head">
+    <span class="eyebrow">The wall</span>
+    <h2>The demo worked. Production is a different planet.</h2>
+    <p>AI got you to a working prototype faster than ever. It also skipped everything that doesn't show up in a demo.</p>
+  </div>
+  <div class="failures">
+    <div class="failure">
+      <span class="code">ANOMALY 01 / SECURITY</span>
+      <h3>Secrets in the source</h3>
+      <p>API keys in the frontend, no rate limiting, auth bolted on as an afterthought. One curious user away from an incident.</p>
+    </div>
+    <div class="failure">
+      <span class="code">ANOMALY 02 / COMPLIANCE</span>
+      <h3>GDPR was never in the prompt</h3>
+      <p>Personal data with no lawful basis, no deletion path, no DPA. Fine territory the moment you take on real users.</p>
+    </div>
+    <div class="failure">
+      <span class="code">ANOMALY 03 / MAINTAINABILITY</span>
+      <h3>Nobody can change it safely</h3>
+      <p>No tests, no environments, no deploy pipeline. Every change is a gamble, and the AI that wrote it isn't on call.</p>
+    </div>
+  </div>
+</section>
+
+<section class="board" id="board">
+  <div class="section-head">
+    <span class="eyebrow">Launch readiness</span>
+    <h2>We run the go/no-go poll your product never had.</h2>
+    <p>Five stations, polled in sequence. We don't call launch until every one reads GO.</p>
+  </div>
+  <div class="board-grid">
+    <div class="station">
+      <span class="station-id">STN-01</span>
+      <div>
+        <h3>Security</h3>
+        <p>Secret management, authentication, authorisation, rate limiting, dependency audit — a hard review of the AI-generated surface.</p>
+      </div>
+      <span class="gonogo" aria-hidden="true"></span>
+    </div>
+    <div class="station">
+      <span class="station-id">STN-02</span>
+      <div>
+        <h3>GDPR &amp; data protection</h3>
+        <p>Data mapping, lawful basis, retention and deletion flows, cookie consent, processor agreements — UK &amp; EU compliant.</p>
+      </div>
+      <span class="gonogo" aria-hidden="true"></span>
+    </div>
+    <div class="station">
+      <span class="station-id">STN-03</span>
+      <div>
+        <h3>App store readiness</h3>
+        <p>Apple and Google review requirements, privacy manifests, in-app purchase rules, store assets, submission handled end to end.</p>
+      </div>
+      <span class="gonogo" aria-hidden="true"></span>
+    </div>
+    <div class="station">
+      <span class="station-id">STN-04</span>
+      <div>
+        <h3>Payments</h3>
+        <p>Production-grade Stripe or store billing: webhooks, retries, refunds, VAT, dunning — money flows that survive the real world.</p>
+      </div>
+      <span class="gonogo" aria-hidden="true"></span>
+    </div>
+    <div class="station">
+      <span class="station-id">STN-05</span>
+      <div>
+        <h3>Maintainability</h3>
+        <p>Tests, CI/CD, environments, monitoring, documentation — so the next change is routine, whoever makes it.</p>
+      </div>
+      <span class="gonogo" aria-hidden="true"></span>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="section-head">
+    <span class="eyebrow">Flight plan</span>
+    <h2>Four phases from where you are to where you launch.</h2>
+  </div>
+  <div class="phases">
+    <div class="phase">
+      <span class="t">T-MINUS 4 WKS</span>
+      <h3>Intake</h3>
+      <p>We take the codebase as-is — no judgement — and map what was built, what was assumed, and what was skipped.</p>
+    </div>
+    <div class="phase">
+      <span class="t">T-MINUS 3 WKS</span>
+      <h3>Audit</h3>
+      <p>The full go/no-go poll across all five stations, delivered as a prioritised report with fixed-price remediation.</p>
+    </div>
+    <div class="phase">
+      <span class="t">T-MINUS 2 WKS</span>
+      <h3>Harden</h3>
+      <p>We fix what's red: security, compliance, payments, pipelines. You watch every station turn green.</p>
+    </div>
+    <div class="phase">
+      <span class="t">T-ZERO</span>
+      <h3>Launch &amp; hold</h3>
+      <p>Store submission, go-live, and ongoing support agreements so it stays nominal after launch day.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <span class="eyebrow">Begin countdown</span>
+  <h2>From AI-built to business-ready.</h2>
+  <p>A fixed-price rescue assessment tells you exactly what stands between your MVP and launch.</p>
+  <a class="btn" href="mailto:hello@missioncontrol.uk.com">BOOK A RESCUE ASSESSMENT</a>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap foot-inner">
+    <a class="brand" href="#" style="text-decoration:none">
+      <svg width="26" height="29" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M50 2 L96 14 V62 C96 86 76 100 50 108 C24 100 4 86 4 62 V14 Z" fill="#EDEAE3"/>
+        <path d="M50 22 L72 62 H58 V86 H42 V62 H28 Z" fill="#0B0E13"/>
+      </svg>
+      <span class="wordmark">Mission<br>Control</span>
+    </a>
+    <span>© 2026 MISSION CONTROL · MISSIONCONTROL.UK.COM</span>
+  </div>
+</footer>
+
+<script>
+  // GO/NO-GO stations flip from NO-GO to GO as they scroll into view, staggered.
+  const stations = document.querySelectorAll('.station');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) {
+    stations.forEach(s => s.classList.add('lit'));
+  } else {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const i = [...stations].indexOf(e.target);
+          setTimeout(() => e.target.classList.add('lit'), i * 160);
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold:.35});
+    stations.forEach(s => io.observe(s));
+  }
+</script>
+
+</body>
+</html>
