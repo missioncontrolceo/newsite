@@ -47,6 +47,48 @@
     .lstrip{-webkit-mask-image:none;mask-image:none}
   }
 
+
+  /* ---------- blog ---------- */
+  .post-list{display:grid;gap:14px}
+  .post-card{display:grid;grid-template-columns:150px 1fr auto;gap:30px;align-items:center;background:var(--panel);border:1px solid var(--panel-edge);border-radius:8px;padding:26px 30px;text-decoration:none;transition:border-color .2s,transform .2s}
+  .post-card:hover{border-color:var(--amber);transform:translateY(-2px)}
+  .post-card .pdate{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--faint);line-height:1.8}
+  .post-card .pcat{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--amber);text-transform:uppercase}
+  .post-card h3{font-size:20px;font-weight:800;font-variation-settings:"wdth" 108;margin:4px 0 8px}
+  .post-card p{color:var(--dim);font-size:15px}
+  .post-card .arrowgo{font-family:var(--mono);color:var(--faint);font-size:18px;transition:color .2s,transform .2s}
+  .post-card:hover .arrowgo{color:var(--amber);transform:translateX(4px)}
+
+  .article{max-width:760px;margin:0 auto}
+  .article .meta{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--faint);margin-bottom:18px;text-transform:uppercase}
+  .article .meta b{color:var(--amber);font-weight:600}
+  .article h1{font-size:clamp(32px,4.4vw,52px);margin-bottom:14px}
+  .article .byline{font-family:var(--mono);font-size:12px;color:var(--dim);letter-spacing:.08em;margin-bottom:36px}
+  .article .hero-img{width:100%;border-radius:8px;border:1px solid var(--panel-edge);margin-bottom:40px}
+  .post-body{color:var(--dim);font-size:17.5px}
+  .post-body p{margin-bottom:18px}
+  .post-body strong{color:var(--bone)}
+  .post-body em{color:var(--bone)}
+  .post-body h2,.post-body h3,.post-body h4{color:var(--bone);font-variation-settings:"wdth" 108;line-height:1.2;margin:38px 0 14px}
+  .post-body h2{font-size:28px;font-weight:800}
+  .post-body h3{font-size:22px;font-weight:700}
+  .post-body h4{font-size:18px;font-weight:700}
+  .post-body ul,.post-body ol{margin:0 0 18px 24px}
+  .post-body li{margin-bottom:8px}
+  .post-body a{color:var(--amber);text-decoration:none;border-bottom:1px solid rgba(242,116,11,.45)}
+  .post-body a:hover{border-color:var(--amber)}
+  .post-body img{max-width:100%;border-radius:8px;border:1px solid var(--panel-edge);margin:10px 0 18px}
+  .post-body blockquote{border-left:3px solid var(--amber);padding:6px 0 6px 22px;margin:24px 0;color:var(--bone);font-size:18px}
+  .post-body blockquote p{margin-bottom:0}
+  .post-body .embed{position:relative;padding-top:56.25%;margin:10px 0 22px;border-radius:8px;overflow:hidden;border:1px solid var(--panel-edge)}
+  .post-body .embed iframe{position:absolute;inset:0;width:100%;height:100%}
+  .back-link{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--dim);text-decoration:none;margin-bottom:36px}
+  .back-link:hover{color:var(--amber)}
+  .blog-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:44px}
+  .blog-filter .chip{cursor:pointer;user-select:none;background:var(--panel)}
+  .blog-filter .chip.on{color:var(--amber);border-color:rgba(242,116,11,.5)}
+  @media (max-width:700px){.post-card{grid-template-columns:1fr;gap:10px}.post-card .arrowgo{display:none}}
+
   /* ---------- status ticker ---------- */
   .ticker{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--dim);border-bottom:1px solid var(--panel-edge);padding:8px 0;overflow:hidden;white-space:nowrap}
   .ticker-inner{display:inline-block;padding-left:100%;animation:tick 38s linear infinite}
@@ -464,7 +506,7 @@
           <li><a href="https://www.linkedin.com/company/missioncntrl" rel="noopener">LinkedIn</a></li>
           <li><a href="https://x.com/missioncntrlhq" rel="noopener">X / Twitter</a></li>
           <li><a href="https://fosstodon.org/@missioncontrol" rel="noopener">Mastodon</a></li>
-          <li><a href="https://missioncontrol.uk.com/blog/" rel="noopener">News &amp; blog</a></li>
+          <li><a href="blog.html">News &amp; blog</a></li>
         </ul>
       </div>
     </div>
