@@ -89,6 +89,19 @@
   .blog-filter .chip.on{color:var(--amber);border-color:rgba(242,116,11,.5)}
   @media (max-width:700px){.post-card{grid-template-columns:1fr;gap:10px}.post-card .arrowgo{display:none}}
 
+
+  /* ---------- flight directors ---------- */
+  .crew-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:54px}
+  .crew-card{background:var(--panel);border:1px solid var(--panel-edge);border-radius:8px;overflow:hidden;text-align:center}
+  .crew-card .portrait{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 35%, #161c26 0%, var(--panel) 70%);border-bottom:1px solid var(--panel-edge);position:relative}
+  .crew-card .portrait img{width:100%;height:100%;object-fit:cover}
+  .crew-card .portrait .ph{opacity:.28;width:40%}
+  .crew-card .portrait .ph-tag{position:absolute;bottom:12px;left:0;right:0;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;color:var(--faint)}
+  .crew-card .cinfo{padding:16px 14px 18px}
+  .crew-card .cname{font-weight:700;font-size:15.5px;font-variation-settings:"wdth" 106}
+  .crew-card .crole{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--amber);margin-top:5px;text-transform:uppercase}
+  @media (max-width:920px){.crew-grid{grid-template-columns:repeat(2,1fr)}}
+
   /* ---------- status ticker ---------- */
   .ticker{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--dim);border-bottom:1px solid var(--panel-edge);padding:8px 0;overflow:hidden;white-space:nowrap}
   .ticker-inner{display:inline-block;padding-left:100%;animation:tick 38s linear infinite}
@@ -477,6 +490,42 @@
     <span class="chip">PEARSON</span>
     <span class="chip">MEDIACOM</span>
     <span class="chip">ART FUND</span>
+  </div>
+</section>
+
+<section class="rule" id="crew">
+  <div class="section-head">
+    <span class="eyebrow">Flight directors</span>
+    <h2>The crew on console.</h2>
+    <p>Small team, long flight log. The people who actually build the things.</p>
+  </div>
+  <div class="split">
+    <div class="body">
+      <p>The Mission Control team has been designing, building, and flying digital solutions from the ground up since 2013 &mdash; from the first sketch on a whiteboard to the day-two patch after launch, and every go/no-go poll in between. Mobile apps, web platforms, AI systems, bespoke video infrastructure: if it ships, someone on this console has built it from zero, more than once.</p>
+      <p>We are also, unapologetically, an enormous bunch of geeks. We run Linux on our daily drivers (and will happily tell you why), build our own machines, collect gadgets the way other agencies collect awards, and argue about window managers, mechanical keyboards, and dive watches with complete sincerity. It's not a quirk &mdash; it's the point. People who genuinely love computing build better things on it.</p>
+    </div>
+    <div class="body">
+      <p>That curiosity is why clients keep us around long after launch. A decade-plus of building from first principles means there's very little we haven't taken apart, fixed, or rebuilt properly &mdash; and when something new arrives, we're usually already playing with it before a client asks.</p>
+      <p>No account managers between you and the people writing the code. When you talk to Mission Control, you're talking to the crew on console.</p>
+    </div>
+  </div>
+  <div class="crew-grid">
+    <div class="crew-card">
+      <div class="portrait"><svg class="ph" viewBox="0 0 100 116" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M18 8 H82 Q92 8 92 18 V68 L57 102 Q50 108.5 43 102 L8 68 V18 Q8 8 18 8 Z" fill="#EDEAE3"/><path d="M50 24 L77 52 L71.5 58.5 L50 36.5 L28.5 58.5 L23 52 Z" fill="#0B0E13"/><path d="M50 46 L56.5 89 L43.5 89 Z" fill="#0B0E13"/><path d="M42.5 50 L47 54.5 L31.5 77 Z" fill="#0B0E13"/><path d="M57.5 50 L53 54.5 L68.5 77 Z" fill="#0B0E13"/></svg><span class="ph-tag">AWAITING PORTRAIT // CREW-01</span></div>
+      <div class="cinfo"><div class="cname">Crew member</div><div class="crole">Flight director</div></div>
+    </div>
+    <div class="crew-card">
+      <div class="portrait"><svg class="ph" viewBox="0 0 100 116" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M18 8 H82 Q92 8 92 18 V68 L57 102 Q50 108.5 43 102 L8 68 V18 Q8 8 18 8 Z" fill="#EDEAE3"/><path d="M50 24 L77 52 L71.5 58.5 L50 36.5 L28.5 58.5 L23 52 Z" fill="#0B0E13"/><path d="M50 46 L56.5 89 L43.5 89 Z" fill="#0B0E13"/><path d="M42.5 50 L47 54.5 L31.5 77 Z" fill="#0B0E13"/><path d="M57.5 50 L53 54.5 L68.5 77 Z" fill="#0B0E13"/></svg><span class="ph-tag">AWAITING PORTRAIT // CREW-02</span></div>
+      <div class="cinfo"><div class="cname">Crew member</div><div class="crole">Flight director</div></div>
+    </div>
+    <div class="crew-card">
+      <div class="portrait"><svg class="ph" viewBox="0 0 100 116" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M18 8 H82 Q92 8 92 18 V68 L57 102 Q50 108.5 43 102 L8 68 V18 Q8 8 18 8 Z" fill="#EDEAE3"/><path d="M50 24 L77 52 L71.5 58.5 L50 36.5 L28.5 58.5 L23 52 Z" fill="#0B0E13"/><path d="M50 46 L56.5 89 L43.5 89 Z" fill="#0B0E13"/><path d="M42.5 50 L47 54.5 L31.5 77 Z" fill="#0B0E13"/><path d="M57.5 50 L53 54.5 L68.5 77 Z" fill="#0B0E13"/></svg><span class="ph-tag">AWAITING PORTRAIT // CREW-03</span></div>
+      <div class="cinfo"><div class="cname">Crew member</div><div class="crole">Flight director</div></div>
+    </div>
+    <div class="crew-card">
+      <div class="portrait"><svg class="ph" viewBox="0 0 100 116" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M18 8 H82 Q92 8 92 18 V68 L57 102 Q50 108.5 43 102 L8 68 V18 Q8 8 18 8 Z" fill="#EDEAE3"/><path d="M50 24 L77 52 L71.5 58.5 L50 36.5 L28.5 58.5 L23 52 Z" fill="#0B0E13"/><path d="M50 46 L56.5 89 L43.5 89 Z" fill="#0B0E13"/><path d="M42.5 50 L47 54.5 L31.5 77 Z" fill="#0B0E13"/><path d="M57.5 50 L53 54.5 L68.5 77 Z" fill="#0B0E13"/></svg><span class="ph-tag">AWAITING PORTRAIT // CREW-04</span></div>
+      <div class="cinfo"><div class="cname">Crew member</div><div class="crole">Flight director</div></div>
+    </div>
   </div>
 </section>
 
