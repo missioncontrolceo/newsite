@@ -89,6 +89,21 @@
   .blog-filter .chip.on{color:var(--amber);border-color:rgba(242,116,11,.5)}
   @media (max-width:700px){.post-card{grid-template-columns:1fr;gap:10px}.post-card .arrowgo{display:none}}
 
+
+  /* ---------- flight directors ---------- */
+  .crew-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:54px}
+  .crew-card{background:var(--panel);border:1px solid var(--panel-edge);border-radius:8px;overflow:hidden;text-align:center}
+  .crew-card .portrait{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 35%, #161c26 0%, var(--panel) 70%);border-bottom:1px solid var(--panel-edge);position:relative}
+  .crew-card .portrait img{width:86%;height:86%;object-fit:contain}
+  .crew-card.director{border-color:rgba(242,116,11,.45)}
+  .crew-card.director .crole{font-weight:600}
+  .crew-card .portrait .ph{opacity:.28;width:40%}
+  .crew-card .portrait .ph-tag{position:absolute;bottom:12px;left:0;right:0;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;color:var(--faint)}
+  .crew-card .cinfo{padding:16px 14px 18px}
+  .crew-card .cname{font-weight:700;font-size:15.5px;font-variation-settings:"wdth" 106}
+  .crew-card .crole{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--amber);margin-top:5px;text-transform:uppercase}
+  @media (max-width:920px){.crew-grid{grid-template-columns:repeat(2,1fr)}}
+
   /* ---------- status ticker ---------- */
   .ticker{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--dim);border-bottom:1px solid var(--panel-edge);padding:8px 0;overflow:hidden;white-space:nowrap}
   .ticker-inner{display:inline-block;padding-left:100%;animation:tick 38s linear infinite}
@@ -391,6 +406,7 @@
     <a class="nlink" href="our-process.html">Our Process</a>
     <a class="nlink active" aria-current="page" href="case-studies.html">Case Studies</a>
     <a class="nlink" href="about.html">About Us</a>
+    <a class="nlink" href="blog.html">Blog</a>
     <a class="nlink" href="contact.html">Contact Us</a>
     <a class="btn" href="contact.html">BOOK ASSESSMENT</a>
   </div>
@@ -407,7 +423,8 @@
       <li><a class="olink" href="our-process.html"><span class="idx">MNU-02</span><span class="label">Our Process</span></a></li>
       <li><a class="olink" href="case-studies.html"><span class="idx">MNU-03</span><span class="label">Case Studies</span></a></li>
       <li><a class="olink" href="about.html"><span class="idx">MNU-04</span><span class="label">About Us</span></a></li>
-      <li><a class="olink" href="contact.html"><span class="idx">MNU-05</span><span class="label">Contact Us</span></a></li>
+      <li><a class="olink" href="blog.html"><span class="idx">MNU-05</span><span class="label">Blog</span></a></li>
+      <li><a class="olink" href="contact.html"><span class="idx">MNU-06</span><span class="label">Contact Us</span></a></li>
     </ul>
     <div class="overlay-foot">HELLO@WEAREMISSIONCONTROL.COM &nbsp;&middot;&nbsp; +44 (0)1604 913390 &nbsp;&middot;&nbsp; NORTHAMPTON, UK</div>
   </div>
